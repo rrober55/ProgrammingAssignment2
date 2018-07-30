@@ -7,32 +7,24 @@
 
 ## This function creates a special "matrix" object that can cache its inverse.
 makeCacheMatrix <- function(x = matrix()) {
-	# Initialize the empty object
-	inv <- NULL
-	
-	# Set Method
-	# Get input matrix as "x"
-	# Value of the inverse
-	
-	set <- function(y) {
-	x <<- y
-	inv <<- NULL
+	inv <- NULL									# Initialize the empty object
+	set <- function(y) {								# Set Method
+		x <<- y									# Get input matrix as "x"
+		inv <<- NULL								# Value of the inverse
 
 }
-	# Get Method
-	#Returns stored value for the matrix "x"
-	get <- function() x
 	
-	# Set method
-	# Set the value of the inverse matrix
-	setInverse <- function(solveMatrix) inv <<- solveMatrix
+	get <- function() x								# Get Method
+											# Returns stored value for the matrix "x"
 	
-	# Get Method
-	# Get the value of the inverse matrix
-	getInverse <- function () inv
+	setinv <- function(invers) inv <<- invers					# Set method
+											# Set the value of the inverse matrix
+	
+	getinv <- function () inv							# Get Method
+											# Get the value of the inverse matrix
 	
 	# Return a list of all methods
-	list(set = set, get = get, setinverse = setinverse, getinverse = getinverse)
+	list(set = set, get = get, setinv = setinv, getinv = getinv)			# Return a list of all methods
 }
 
 ##  This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
@@ -41,19 +33,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
 
-        # Return a matrix that is the inverse of 'x'
-	inv <- x$getInverse()
+	inv <- x$getinv()								  # Return a matrix that is the inverse of 'x'
 	
-	# If the nverse has already been computed, return it
-	if(!is.null(inv)){
-	message("getting cached data")
-	return(inv)
+	if(!is.null(inv)){								  # If the nverse has already been computed, 													return it						message("getting cached data")
+		return(inv)
 } 
-	# Else, get the orginal matrix and solve it
-	data <- x$get()
-	inv <- solve(data)
-	x$setInverse(inv)
+	data <- x$get()									 # Else, get the orginal matrix and solve it		inv <- solve(data)
+	x$setinv(inv)
 	
-	# Return the computed inverse
-	inv
+	inv										 # Return the computed inverse
 }
